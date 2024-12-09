@@ -122,7 +122,7 @@ The request should include the following fields in JSON format:
   }
 }
 
-400 Bad Request: Validation errors.
+# 400 Bad Request: Validation errors.
 
 {
   "errors": [
@@ -134,7 +134,7 @@ The request should include the following fields in JSON format:
   ]
 }
 
-401 Unauthorized: Invalid email or password.
+# 401 Unauthorized: Invalid email or password.
 
 {
   "error": "string (Invalid email or password)"
