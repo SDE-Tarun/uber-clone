@@ -1,5 +1,5 @@
 
-# Backend API Documentation
+# User Authentification API Documentation
 
 # Endpoint: /users/register
 
@@ -91,3 +91,51 @@ Content-Type: application/json
 Ensure the SECRET_KEY environment variable is set in your .env file for JWT generation.
 Passwords are hashed before being saved to the database for security purposes.
 The token can be used for authenticating subsequent requests to protected routes.
+
+# Endpoint: /users/login
+
+# HTTP Method: POST
+
+# Description:
+This endpoint is used to log in an existing user.
+
+# Request Body
+The request should include the following fields in JSON format:
+
+{
+  "email": "string (valid email format)",
+  "password": "string (min length: 6)"
+}
+
+# Response
+200 OK: User logged in successfully.
+
+{
+  "token": "string (JWT token)",
+  "user": {
+    "_id": "string",
+    "fullname": {
+      "firstname": "string",
+      "lastname": "string"
+    },
+    "email": "string"
+  }
+}
+
+400 Bad Request: Validation errors.
+
+{
+  "errors": [
+    {
+      "msg": "string (error message)",
+      "param": "string (field name)",
+      "location": "body"
+    }
+  ]
+}
+
+401 Unauthorized: Invalid email or password.
+
+{
+  "error": "string (Invalid email or password)"
+}
