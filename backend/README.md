@@ -1,5 +1,5 @@
 
-# User Authentification API Documentation
+# User Authentication API Documentation
 
 # Endpoint: /users/register
 
