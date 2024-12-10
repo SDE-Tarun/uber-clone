@@ -1,7 +1,7 @@
 
 # User Authentication API Documentation
 
-# Endpoint: /users/register
+# 1. Endpoint: /users/register
 
 # HTTP Method: POST
 
@@ -92,7 +92,7 @@ Ensure the JWT_SECRET environment variable is set in your .env file for JWT gene
 Passwords are hashed before being saved to the database for security purposes.
 The token can be used for authenticating subsequent requests to protected routes.
 
-# Endpoint: /users/login
+# 2. Endpoint: /users/login
 
 # HTTP Method: POST
 
@@ -138,4 +138,58 @@ The request should include the following fields in JSON format:
 
 {
   "error": "string (Invalid email or password)"
+}
+
+### 3. Endpoint: `/users/profile`
+
+#### HTTP Method: `GET`
+
+# Description:
+This endpoint retrieves the authenticated user's profile.
+
+#### Headers
+- **Authorization**: `Bearer <JWT_TOKEN>` (optional if token is stored in cookies)
+
+#### Cookies (Optional)
+- **token**: `JWT_TOKEN` (stored automatically on login if not provided in headers)
+
+#### Response
+- **200 OK**: Successfully retrieved the user profile.
+  {
+    "_id": "string",
+    "fullname": {
+      "firstname": "string",
+      "lastname": "string"
+    },
+    "email": "string"
+  }
+
+# 401 Unauthorized: Missing or invalid token.
+{
+  "message": "Unauthorized"
+}
+
+# 4. Endpoint: /users/logout
+
+#### HTTP Method: `GET`
+
+# Description:
+This endpoint logs out the authenticated user by clearing the token from cookies and blacklisting it to prevent reuse.
+
+# Headers
+Authorization: Bearer <JWT_TOKEN> (optional if token is stored in cookies)
+
+# Cookies (Optional)
+token: JWT_TOKEN (stored automatically on login if not provided in headers)
+
+# Response
+200 OK: Successfully logged out.
+
+{
+  "message": "Logged out successfully"
+}
+
+# 401 Unauthorized: Missing or invalid token.
+{
+  "message": "Unauthorized"
 }
