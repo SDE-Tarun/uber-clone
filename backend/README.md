@@ -88,7 +88,7 @@ Content-Type: application/json
 }
 
 # Notes:
-Ensure the SECRET_KEY environment variable is set in your .env file for JWT generation.
+Ensure the JWT_SECRET environment variable is set in your .env file for JWT generation.
 Passwords are hashed before being saved to the database for security purposes.
 The token can be used for authenticating subsequent requests to protected routes.
 
