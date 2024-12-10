@@ -54,6 +54,9 @@ module.exports.loginUser = async function (req,res,next) {
 
     const token = user.generateAuthToken();
 
+    // Check token authorization using cookie
+    res.cookie('token', token);
+
     res.status(200).json( {token, user} );
     
 }
