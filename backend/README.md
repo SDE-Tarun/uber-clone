@@ -266,8 +266,6 @@ The following fields are required in the request body:
 }
 }
 
----
-
 ### Response:
 
 #### Success Response:
@@ -339,3 +337,118 @@ The following fields are required in the request body:
 - The `email` must be unique.
 - Passwords are hashed before being stored in the database.
 - The `token` generated is a JWT that can be used for authentication in subsequent requests.
+
+2. ## Endpoint: `/captains/login`
+
+### Description:
+This endpoint allows a captain to log in by providing their email and password. Upon successful login, a JWT token is generated and returned.
+
+### HTTP Method:
+`POST`
+
+### Request Body:
+
+{
+  "email": "string (required, valid email format)",
+  "password": "string (required, minimum length 6)"
+}
+Response:
+Success:
+Status Code: 200 OK
+Response Body:
+json
+Copy code
+{
+  "token": "string (JWT token)",
+  "captain": {
+    "_id": "string",
+    "email": "string"
+  }
+}
+Error:
+Status Code: 400 Bad Request
+Invalid email/password or missing required fields.
+json
+Copy code
+{
+  "message": "Invalid email or password"
+}
+
+3. ## Endpoint: /captains/profile
+
+## Description:
+This endpoint retrieves the profile information of the logged-in captain. Authentication is required.
+
+# HTTP Method:
+`GET`
+
+## Headers:
+Authorization: Bearer <JWT Token>
+
+## Response:
+Success:
+Status Code: 200 OK
+
+## Response Body:
+
+{
+  "_id": "string",
+  "fullname": {
+    "firstname": "string",
+    "lastname": "string"
+  },
+  "email": "string",
+  "status": "string",
+  "vehicle": {
+    "color": "string",
+    "plate": "string",
+    "capacity": "string",
+    "vehicleType": "string",
+    "location": {
+      "lat": "number",
+      "lng": "number"
+    }
+  }
+}
+
+## Error:
+Status Code: 401 Unauthorized
+Authentication token is missing or invalid.
+
+{
+  "message": "Unauthorized"
+}
+
+
+4. ## Endpoint: /captains/logout
+
+## Description:
+This endpoint logs out the currently authenticated captain by blacklisting their JWT token and clearing the authentication cookie.
+
+## HTTP Method:
+`GET`
+
+## Headers:
+Authorization: Bearer <JWT Token>
+
+## Response:
+Success:
+Status Code: 200 OK
+
+## Response Body:
+
+{
+  "message": "Logged out successfully"
+}
+
+## Error:
+Status Code: 401 Unauthorized
+Authentication token is missing or invalid.
+
+{
+  "message": "Unauthorized"
+}
+
+## Notes:
+Make sure to include the JWT token in the Authorization header for protected endpoints (/captains/profile, /captains/logout).
+The Authorization header format is: Bearer <JWT Token>.
