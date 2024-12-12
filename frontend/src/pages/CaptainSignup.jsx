@@ -15,7 +15,7 @@ const CaptainSignup = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     setUserData({
-      username: {
+      fullName: {
         firstName: firstName,
         lastName: lastName,
       },
@@ -44,7 +44,7 @@ const CaptainSignup = () => {
           }}
           action=""
         >
-          <h3 className="text-lg font-medium mb-2">What's your name</h3>
+          <h3 className="text-lg w-full font-medium mb-2">What's our Captain's name</h3>
           <div className="flex gap-4 mb-6">
             <input
               value={firstName}
@@ -69,7 +69,7 @@ const CaptainSignup = () => {
             />
           </div>
 
-          <h3 className="text-lg font-medium mb-2">What's your email</h3>
+          <h3 className="text-lg font-medium mb-2">What's our Captain's email</h3>
           <input
             value={email}
             onChange={(e) => {
