@@ -23,7 +23,7 @@ const CaptainLogin = () => {
   return (
     <div className="p-7 h-screen flex flex-col justify-between">
       <div>
-      <img className='w-20 mb-3' src="https://www.freeiconspng.com/thumbs/driver-icon/driver-icon-15.png" alt="uber-logo" />
+      <img className='w-20 mb-5 flex items-start' src="https://freelogopng.com/images/all_img/1659761425uber-driver-logo-png.png" alt="uber-logo" />
       <form onSubmit={(e)=>{
         submitHandler(e);
       }} 
