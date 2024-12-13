@@ -7,7 +7,142 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-### How to Integrate User Endpoints with React
+### How to do two way binding ?
+### Steps: -
+1. import { useState }  from 'react'
+2. Inside functional component create a useStateSnippet :-
+const [email, setEmail] = useState('');
+Note:- initially value is set to be empty.
+3. Now you can use email and setEmail in your JSX like this :-
+<input type="email"
+ value={email} // empty here 
+ onChange={(e) => {
+   setEmail(e.target.value)
+   } />
+// Whenever i change the input field, the email state will be updated.
+4. Similarly for password-
+const [password, setPassword] = useState('');
+<input type="password"
+value={password} // empty here
+onChange={(e) => {
+   setPassword(e.target.value)
+   } />
+// Whenever i change the input field, the password state will be updated.
+
+### Stop form reloading ?
+### Steps: -
+<form onSubmit={(e) => {
+   e.preventDefault(); // prevent default form submission
+   // do something
+   }}>
+</form>
+
+### When submitting form i am running a function which is preventing the default form submission. This will prevent the page from reloading.
+<form onSubmit={(e) => {
+   submitHandler(e) // call submitHandler function and passing a event as a parameter
+   }}>
+</form>
+
+### To save user data in local storage
+### Steps:-
+1. const [userData, setUserData] = useState({})
+
+2. const submitHandler = (e) => {
+   e.preventDefault();
+   setEmail(''); // clear the input field after form submission
+   setPassword(''); // clear the input field after the form submission
+   // To save the data
+   const setUserData = {
+      email: email,
+      password: password
+      }
+   console.log(userData); // set user data
+
+### How to create context and use it ?
+To centralize the data, so that anyone can use this data.
+### Steps:-
+1. Create a folder in src folder as context inside it create a file as UserContext.jsx
+2. In UserContext.jsx file write the following code:-
+   type rafce
+3. Now I want to wrap the application with this UserContext.
+4. Go to main.jsx file -
+ <UserContext>
+   <App />
+   </UserContext>
+5. Now I can only see this UserContext in my whole application wherever I go in any page.
+6. But I want to show children of UserContext so for that -
+  const UserContext = ({children}) => {
+   return (
+      <div>
+      {children}
+      </div>
+  }
+)
+7. Now I can see the children of UserContext.
+8. Now I want to create a context here so that i can pass data further.
+   So I will create a context like this:-
+   Also import { createContext } from 'react'
+export const UserDataContext = createContext();
+10. Now i want to send this UserDataContext to my children so that they can use this context.
+So I will wrap my children with this context like this:-
+ const UserContext = ({children}) => {
+   return (
+      <div>
+      <UserDataContext.Provider>
+       {children}
+      </UserDataContext.Provider>
+      </div>
+  }
+)
+11. Lets suppose making a data-
+const UserContext = ({children}) => {
+   const user = 'ABC'
+   return (
+      <div>
+      <UserDataContext.Provider>
+       {children}
+      </UserDataContext.Provider>
+      </div>
+   )
+  }
+
+  export default UserContext
+12. If I want to pass this value-
+const UserContext = ({children}) => {
+   const user = 'ABC'
+   return (
+      <div>
+      <UserDataContext.Provider value={user}>
+       {children}
+      </UserDataContext.Provider>
+      </div>
+   )
+  }
+  export default UserContext
+13. Now If I want to use this context in any children component-
+for ex: I want to use it in App.jsx file what I have to do is -
+const App = () => {
+   import { UserDataContext } from 'path here'
+   const ans = useContext(UserDataContext)
+   console.log(ans) // I can see the value here of the data i created in UserContext.
+} 
+
+### Note:-
+In my UseContext.jsx file -
+Creating a useState data
+const [user, setUser] = useState({
+   email:'',
+   fullname:{
+      firstname:'',
+      lastname:''
+   }
+})
+Passing this data-
+<UserDataContext.Provider value={ {user, setUser} }>
+{children}
+</UserDataContext.Provider>
+
+### How to Integrate User Endpoints with React ?
 First lets link our UserSignup Page with users/register endpoint 
 ### Steps :-
 1. Go to UserSignup.jsx file, Now I want to create a user with the help of User Signup form.
